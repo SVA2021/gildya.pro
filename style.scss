@@ -1,0 +1,55 @@
+.container {
+    margin: 0 auto;
+    padding: 0.5em;
+    max-width: 1600px;
+    color: hsl(0, 0%, 40%);
+    background-color: hsl(0, 0%, 96%);
+}
+
+.tab__wrapper {
+    margin-left: 0.5em;
+    background-color: hsl(0, 0%, 96%)
+}
+
+.tab {
+    padding: 0.5em;
+    background-color: hsl(0, 0%, 90%);
+    border: 2px solid hsl(0, 0%, 53%);
+    border-radius: 0.25em 0.25em 0 0;
+    border-bottom: none;
+    cursor: pointer;
+
+    &:not(:last-child) {
+        margin-right: 0.5em;
+    }
+}
+
+.tab__active {
+    background-color: white;
+}
+
+.product__wrapper {
+    min-height: 500px;
+    padding: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    border: 2px solid hsl(0, 0%, 53%);
+    background-color: white;
+}
+
+.product {
+    margin: 0;
+    width: 8em;
+    height: fit-content;
+    border: 2px solid hsl(0, 0%, 53%);
+}
+
+.product__img {
+    width: 100%;
+}
+
+.product__caption {
+    padding: 0.25em;
+    text-align: center;
+}
