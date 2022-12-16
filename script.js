@@ -1,5 +1,6 @@
 'use strict';
 
+//initial data
 var products = [
     {productId: 1, productName: 'Товар 1', categoryId: 1},
     {productId: 2, productName: 'Товар 2', categoryId: 2},
@@ -36,24 +37,46 @@ var categories = [
     {categoryId: 5, categoryName: 'Брюки'},
 ];
 
+//find all needed wrappers
 const container = document.getElementById('container');
 const tabsWrapper = container.querySelector('.tab__wrapper');
 const productsWrapper = container.querySelector('.product__wrapper');
 
+//initial tabs loading
 let activeCategoryId = 1;
 
 categories.forEach((category) => tabsWrapper.insertAdjacentHTML('beforeend',
-    `<button class="tab ${category.categoryId === activeCategoryId ? 'tab__active' : ''}">
+    `<button data-id="${category.categoryId}" class="${getClassNameForTab(category.categoryId)}">
     ${category.categoryName}
     </button>`
 ));
 
-const tabs = tabsWrapper.querySelectorAll('button');
+function getClassNameForTab(categoryId) {
+    return categoryId === activeCategoryId ? 'tab tab__active' : 'tab';
+}
 
+const tabs = tabsWrapper.querySelectorAll('button');
+tabs.forEach((tab) => tab.addEventListener(('click'), () => updateState(tab.dataset.id)));
+
+//initial products loading
+loadProducts(activeCategoryId);
+
+function updateState(categoryId) {
+    updateActiveTabsClass(categoryId);
+    loadProducts(categoryId);
+}
+
+function updateActiveTabsClass(categoryId) {
+    activeCategoryId = categoryId;
+    tabs.forEach((tab) => {
+        tab.classList.remove('tab__active');
+        if (tab.dataset.id === categoryId) tab.classList.add('tab__active');
+    })
+}
 
 function loadProducts(categoryId) {
-    let filteredProducts = products.filter((product) => product.categoryId === categoryId);
-    productsWrapper.innerHTML = '';
+    let filteredProducts = products.filter((product) => product.categoryId == categoryId);
+    productsWrapper.innerHTML = null;
     filteredProducts.forEach((product) => productsWrapper.insertAdjacentHTML('beforeend',
         `<figure class="product">
         <img src="./tovar.jpg" alt="product" class="product__img">
